@@ -7,7 +7,7 @@ import About from "./components/About"
 import Services from "./pages/Services"
 import Contact from "./pages/Contact"
 import QuemSomos from "./pages/QuemSomos"
-import PoliticaPrivacidade from "./pages/PoliticaPrivacidade"
+import PoliticaPrivacidade from "./pages/PoliticaPr"
 
 export default function App() {
   return (
