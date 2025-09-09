@@ -1,34 +1,38 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import { Phone, Mail, MapPin, MessageSquare } from "lucide-react"
 
 export default function Contact() {
   const form = useRef<HTMLFormElement | null>(null)
+  const [loading, setLoading] = useState(false)
 
   const sendEmail = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!form.current) return
 
-    const formData = new FormData(form.current)
-    const data = {
-      name: formData.get("user_name"),
-      email: formData.get("user_email"),
-      phone: formData.get("user_phone") || "",
-      message: formData.get("message"),
-    }
+    setLoading(true)
+
+    const formData = Object.fromEntries(new FormData(form.current).entries())
 
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formData),
       })
-      if (!res.ok) throw new Error("Erro no envio")
 
-      alert("Mensagem enviada com sucesso!")
-      form.current.reset()
+      const data = await res.json()
+
+      if (data.ok) {
+        alert("Mensagem enviada com sucesso!")
+        form.current.reset()
+      } else {
+        alert("Erro ao enviar: " + (data.error || "Tente novamente"))
+      }
     } catch (err) {
       console.error(err)
       alert("Erro ao enviar. Tente novamente")
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -44,11 +48,18 @@ export default function Contact() {
           <div className="space-y-4 mb-6">
             <div className="flex items-center gap-3">
               <Phone className="text-[#2563EB]" />
-              <a href="tel:+557133099282" className="hover:underline">(71) 33099282</a>
+              <a href="tel:+557133099282" className="hover:underline">
+                (71) 33099282
+              </a>
             </div>
             <div className="flex items-center gap-3">
               <MessageSquare className="text-green-600" />
-              <a href="https://wa.me/557133099282" target="_blank" rel="noopener noreferrer" className="hover:underline">
+              <a
+                href="https://wa.me/557133099282"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
                 WhatsApp
               </a>
             </div>
@@ -70,7 +81,7 @@ export default function Contact() {
               width="100%"
               height="250"
               style={{ border: 0 }}
-              allowFullScreen
+              allowFullScreen={true}
               loading="lazy"
             ></iframe>
           </div>
@@ -85,22 +96,16 @@ export default function Contact() {
           >
             <input
               type="text"
-              name="user_name"
+              name="name"
               placeholder="Seu Nome"
               required
               className="w-full p-3 border border-[#CBD5E1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
             />
             <input
               type="email"
-              name="user_email"
+              name="email"
               placeholder="Seu E-mail"
               required
-              className="w-full p-3 border border-[#CBD5E1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
-            />
-            <input
-              type="tel"
-              name="user_phone"
-              placeholder="Telefone (opcional)"
               className="w-full p-3 border border-[#CBD5E1] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
             />
             <textarea
@@ -112,9 +117,10 @@ export default function Contact() {
             ></textarea>
             <button
               type="submit"
+              disabled={loading}
               className="bg-[#2563EB] hover:bg-[#1E40AF] text-white font-semibold py-3 px-6 rounded-lg w-full transition"
             >
-              Enviar
+              {loading ? "Enviando..." : "Enviar"}
             </button>
           </form>
         </div>
