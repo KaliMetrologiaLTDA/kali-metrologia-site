@@ -1,13 +1,15 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-import Header from "./components/Header"
-import Footer from "./components/Footer"
-import Hero from "./components/Hero"
-import Areas from "./components/Areas"
-import About from "./components/About"
-import Services from "./pages/Services"
-import Contact from "./pages/Contact"
-import QuemSomos from "./pages/QuemSomos"
-import PoliticaPrivacidade from "./pages/PoliticaPr"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Hero from "./components/Hero";
+import Areas from "./components/Areas";
+import About from "./components/About";
+import CertificatesShowcase from "./components/CertificatesShowcase"; 
+import Services from "./pages/Services";
+import Contact from "./pages/Contact";
+import QuemSomos from "./pages/QuemSomos";
+import PoliticaPrivacidade from "./pages/PoliticaPr";
+import Highlight from "./components/Highlight"
 
 export default function App() {
   return (
@@ -23,6 +25,8 @@ export default function App() {
                   <Hero />
                   <Areas />
                   <About />
+                  <Highlight />
+                  <CertificatesShowcase /> 
                 </>
               }
             />
@@ -44,5 +48,5 @@ export default function App() {
         <Footer />
       </div>
     </Router>
-  )
+  );
 }
