@@ -14,22 +14,17 @@ export default function Hero() {
       id="hero"
       className="relative w-full min-h-[100dvh] flex flex-col items-center justify-center text-white overflow-hidden px-4"
     >
-      {/* Imagem de fundo escurecida */}
       <div
         className="absolute inset-0 bg-cover bg-center filter brightness-75"
-        style={{ backgroundImage: "url('/fundo.png')" }}
+        style={{ backgroundImage: "url('./images/fundo.png')" }}
       />
 
-      {/* Pequeno degradê na parte inferior */}
       <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#2563EB] to-transparent" />
 
       <div className="relative z-10 w-full max-w-6xl">
-        {/* Barra animada superior */}
         <div className="w-full mb-8">
           <div className="h-[3px] animate-loading bg-gradient-to-r from-[#2563EB] via-[#60A5FA] to-[#2563EB]" />
         </div>
-
-        {/* Cards de features */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((f) => {
             const Icon = f.icon;
@@ -50,12 +45,10 @@ export default function Hero() {
           })}
         </div>
 
-        {/* Barra animada inferior */}
         <div className="w-full mt-8">
           <div className="h-[3px] animate-loading bg-gradient-to-r from-[#2563EB] via-[#60A5FA] to-[#2563EB]" />
         </div>
 
-        {/* Botão Solicitar Serviços */}
         <div className="flex justify-center mt-10">
           <Link
             to="/contato"

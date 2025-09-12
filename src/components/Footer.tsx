@@ -6,12 +6,11 @@ export default function Footer() {
     <footer className="bg-[#1E40AF] text-white py-12 px-6 md:px-12 mt-20">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between space-y-8 md:space-y-0">
         
-        {/* Logo e descrição */}
         <div className="flex flex-col items-center md:items-start gap-3">
           <div className="relative flex items-center justify-center p-3 rounded-lg bg-[#F8FAFC] border border-[#2563EB] shadow-md group">
             <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#2563EB]/30 to-[#60A5FA]/20 blur-md opacity-60 group-hover:opacity-100 transition" />
             <img
-              src="/logo.png"
+              src="./images/logo.png"
               alt="Kali Metrologia"
               className="h-16 w-16 object-contain relative z-10"
             />
@@ -21,8 +20,6 @@ export default function Footer() {
             Compromisso com qualidade, inovação e confiança.
           </p>
         </div>
-
-        {/* Links úteis */}
         <div className="flex flex-col gap-2 text-sm font-medium text-center md:text-left">
           <Link to="/politica-privacidade" className="hover:text-[#93C5FD] transition">
             Política & Privacidade
@@ -31,8 +28,6 @@ export default function Footer() {
             Veja os Certificados
           </Link>
         </div>
-
-        {/* Contatos e redes */}
         <div className="flex flex-col gap-2 items-center md:items-end">
           <div className="flex gap-4">
             <a

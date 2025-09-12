@@ -93,7 +93,6 @@ const services = {
 const Services: React.FC = () => {
   const [selectedArea, setSelectedArea] = useState<string | null>(null)
   const [search, setSearch] = useState("")
-  const [showSuggestions, setShowSuggestions] = useState(false)
 
   const areas = Object.keys(services)
 
@@ -104,105 +103,58 @@ const Services: React.FC = () => {
     }))
   )
 
-  const suggestions = search
-    ? allItems.filter(({ item }) =>
-        item.toLowerCase().includes(search.toLowerCase())
-      )
-    : []
-
-  const filteredServices = selectedArea
-    ? { [selectedArea]: services[selectedArea as keyof typeof services] }
-    : services
+  const filteredItems = allItems.filter(({ item, area }) => {
+    const matchesSearch = item.toLowerCase().includes(search.toLowerCase())
+    const matchesArea = selectedArea ? area === selectedArea : true
+    return matchesSearch && matchesArea
+  })
 
   return (
     <section className="py-16 px-6 bg-[#EFF6FF]">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl font-bold text-center text-[#1E40AF] mb-8">
-          Nossos Serviços de Calibração
-        </h2>
-
-        <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-4 mb-10">
-          <div className="flex flex-wrap md:gap-2 gap-2 overflow-x-auto max-w-full md:max-w-[65%] scrollbar-hide">
-            {areas.map((area) => (
-              <button
-                key={area}
-                onClick={() => setSelectedArea(area)}
-                className={`px-3 py-1.5 rounded-md text-sm transition font-medium whitespace-nowrap ${
-                  selectedArea === area
-                    ? "bg-[#2563EB] text-white"
-                    : "bg-[#DBEAFE] text-[#1E40AF] border border-[#2563EB] hover:bg-[#BFDBFE]"
-                }`}
-              >
-                {area}
-              </button>
-            ))}
+       <br />
+        <div className="relative mb-6">
+          <input
+            type="text"
+            placeholder="Pesquisar equipamento..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="w-full px-4 py-2 rounded-full border border-[#CBD5E1] shadow-sm text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
+          />
+          <Search
+            className="absolute right-4 top-2.5 text-gray-400"
+            size={20}
+          />
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 mb-10">
+          {areas.map((area) => (
             <button
-              onClick={() => setSelectedArea(null)}
-              className="px-3 py-1.5 rounded-md text-sm bg-[#E2E8F0] text-[#475569] border border-[#CBD5E1] hover:bg-[#CBD5E1] whitespace-nowrap"
+              key={area}
+              onClick={() => setSelectedArea(area)}
+              className={`px-3 py-2 rounded-md text-sm transition font-medium text-center ${
+                selectedArea === area
+                  ? "bg-[#2563EB] text-white"
+                  : "bg-[#DBEAFE] text-[#1E40AF] border border-[#2563EB] hover:bg-[#BFDBFE]"
+              }`}
             >
-              Ver Todos
+              {area}
             </button>
-          </div>
-
-          <div className="relative w-full md:w-1/3">
-            <input
-              type="text"
-              placeholder="Pesquisar equipamento..."
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value)
-                setShowSuggestions(true)
-              }}
-              onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
-              className="w-full px-4 py-2 rounded-full border border-[#CBD5E1] shadow-sm text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#2563EB]"
-            />
-            <Search
-              className="absolute right-3 top-2.5 text-gray-400"
-              size={20}
-            />
-
-            {showSuggestions && suggestions.length > 0 && (
-              <ul className="absolute top-full mt-2 w-full bg-white text-[#0F172A] rounded-lg shadow-lg max-h-60 overflow-y-auto z-10">
-                {suggestions.map(({ item, area }, i) => (
-                  <li
-                    key={i}
-                    onClick={() => {
-                      setSearch(item)
-                      setSelectedArea(area)
-                      setShowSuggestions(false)
-                    }}
-                    className="px-4 py-2 hover:bg-[#F1F5F9] cursor-pointer flex items-center gap-2"
-                  >
-                    <Search size={16} className="text-gray-500" />
-                    {item}{" "}
-                    <span className="text-xs text-gray-500">({area})</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+          ))}
+          <button
+            onClick={() => setSelectedArea(null)}
+            className="px-3 py-2 rounded-md text-sm bg-[#E2E8F0] text-[#475569] border border-[#CBD5E1] hover:bg-[#CBD5E1]"
+          >
+            Ver Todos
+          </button>
         </div>
 
-        <div className="space-y-8">
-          {Object.entries(filteredServices).map(([area, items]) => (
-            <div key={area}>
-              <h3 className="text-2xl font-semibold text-[#2563EB] mb-4">
-                {area}
-              </h3>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {items
-                  .filter((item) =>
-                    item.toLowerCase().includes(search.toLowerCase())
-                  )
-                  .map((item, i) => (
-                    <li
-                      key={i}
-                      className="p-4 bg-[#F8FAFC] border border-[#CBD5E1] rounded-lg shadow hover:shadow-lg transition"
-                    >
-                      {item}
-                    </li>
-                  ))}
-              </ul>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          {filteredItems.map(({ item }, i) => (
+            <div
+              key={i}
+              className="p-3 bg-white border border-[#CBD5E1] rounded-lg shadow-sm text-center text-sm hover:shadow-md transition"
+            >
+              {item}
             </div>
           ))}
         </div>

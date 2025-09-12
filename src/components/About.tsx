@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 const equipamentos = [
-  { nome: "Foto Teste", imagem: "/fundo.png", descricao: "Descrição do equipamento" },
-  { nome: "Foto Teste", imagem: "/fundo.png", descricao: "Descrição do equipamento" },
-  { nome: "Foto Teste", imagem: "/fundo.png", descricao: "Descrição do equipamento" },
-  { nome: "Foto Teste", imagem: "/fundo.png", descricao: "Descrição do equipamento" },
+  { nome: "Foto Teste", imagem: "./images/fundo.png", descricao: "Descrição do equipamento" },
+  { nome: "Foto Teste", imagem: "./images/fundo.png", descricao: "Descrição do equipamento" },
+  { nome: "Foto Teste", imagem: "./images/fundo.png", descricao: "Descrição do equipamento" },
+  { nome: "Foto Teste", imagem: "./images/fundo.png", descricao: "Descrição do equipamento" },
 ];
 
 export default function About() {

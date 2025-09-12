@@ -1,0 +1,22 @@
+backend:
+  name: github
+  repo: "KaliMetrologiaLTDA/kali-metrologia-site" 
+  branch: main                  
+  squash_merges: true
+
+media_folder: "public/images"    
+public_folder: "/images"       
+publish_mode: editorial_workflow 
+
+collections:
+  - name: "blog"
+    label: "Blog"
+    folder: "content/blog"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Image", name: "image", widget: "image" }
+      - { label: "Body", name: "body", widget: "markdown" }

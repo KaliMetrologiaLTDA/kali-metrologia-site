@@ -1,8 +1,7 @@
 import { useState } from "react";
 
 const certificates = [
-  { src: "/fundo.png", alt: "Certificado ", description: "Laboratórios em conformidade com NBR ISO/IEC 17025" },
-  { src: "/fundo.png", alt: "Certificado INMETRO ", description: "Reconhecimento oficial da competência técnica da Kali Metrologia pelo INMETRO" },
+ { src: "./images/fundo.png", alt: "Certificado ", description: "Laboratórios em conformidade com NBR ISO/IEC 17025" },
 ];
 
 export default function CertificatesShowcase() {
@@ -10,12 +9,9 @@ export default function CertificatesShowcase() {
 
   return (
     <section className="py-16 px-6 bg-[#EFF6FF]">
-      <div className="max-w-6xl mx-auto text-center mb-8">
-        <h2 className="text-3xl font-bold text-[#1E40AF]">Veja Nossos Certificados</h2>
-        <p className="text-[#475569] mt-2">Clique na imagem para ampliar e conferir os detalhes de cada certificado.</p>
-      </div>
-
+      
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+
         {certificates.map((cert) => (
           <div
             key={cert.src}

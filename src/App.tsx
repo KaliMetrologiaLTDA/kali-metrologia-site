@@ -9,7 +9,10 @@ import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import QuemSomos from "./pages/QuemSomos";
 import PoliticaPrivacidade from "./pages/PoliticaPr";
-import Highlight from "./components/Highlight"
+import Highlight from "./components/Highlight";
+import Blog from "./pages/Blog";
+import StudioPage from "./pages/Studio";
+
 
 export default function App() {
   return (
@@ -33,7 +36,10 @@ export default function App() {
             <Route path="/servicos" element={<Services />} />
             <Route path="/contato" element={<Contact />} />
             <Route path="/quem-somos" element={<QuemSomos />} />
+            <Route path="/studio/*" element={<StudioPage />} />
+          
             <Route path="/politica-privacidade" element={<PoliticaPrivacidade />} />
+             <Route path="/blog" element={<Blog />} />
             <Route
               path="*"
               element={
